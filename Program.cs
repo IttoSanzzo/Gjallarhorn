@@ -7,26 +7,26 @@ using DSharpPlus.SlashCommands;
 using Gjallarhorn.Config;
 using Gjallarhorn.Events;
 using Gjallarhorn.HttpServer;
+using System.Diagnostics;
 
 namespace Gjallarhorn {
 	internal class Program {
 	// 0. Program Variables
-		public static HttpClient				HttpCli			{get; set;} = new HttpClient();
-		public static DiscordClient?			Client			{get; set;} = null;
+		public static HttpClient							HttpCli			{get; set;} = new HttpClient();
+		public static DiscordClient?					Client			{get; set;} = null;
 		public static CommandsNextExtension?	Commands		{get; set;}
-		public static Thread?					SocketThread	{get; set;} = null;
+		public static Thread?									SocketThread	{get; set;} = null;
 	// 0.1. Config Program Variables
-		public static bool 						_LocalLavalink	{get; set;} = false;
+		public static bool 										_LocalLavalink	{get; set;} = true;
 
 	// 1. Main
 		static async Task Main(string[] args) {
-			if (args.Length < 3 || args[1] != "SafeStart") {
+			await Program.DotEnvLoadAsync();
+			var SafeStartToken = Environment.GetEnvironmentVariable("SAFE_START_TOKEN") ?? throw new Exception("No safe start token received");
+			if (SafeStartToken != "SafeStart") {
 				Program.ColorWriteLine(ConsoleColor.Red, "Not initalized by Core, aborting...");
 				return ;
 			}
-			await Program.DotEnvLoadAsync();
-			if (args[2] == "true")
-				Program._LocalLavalink = true;
 		// 0. TESTING GROUNDS
 
 		// 1. Importing Json configs and starting

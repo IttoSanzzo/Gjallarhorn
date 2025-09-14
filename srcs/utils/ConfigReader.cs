@@ -9,6 +9,7 @@ namespace Gjallarhorn.Config {
 			var	builder = new ConfigurationBuilder()
 			.SetBasePath($"{Directory.GetCurrentDirectory()}/Config/")
 			.AddJsonFile("appconfig.json", optional: true, reloadOnChange: true)
+			.AddJsonFile("secrets.json", optional: true, reloadOnChange: true)
 			.AddUserSecrets<Program>();
 			IConfiguration config = builder.Build();
 			this._name = config.GetValue<string>("BotData:Name");
