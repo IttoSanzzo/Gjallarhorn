@@ -28,8 +28,10 @@ namespace Gjallarhorn.Components {
 				}
 		}
 	// 0. Member Variables
-		private static ulong				_GjallarhornId	{get; set;} = 1273070668451418122;
+		private static ulong							_GjallarhornId	{get; set;} = 1273070668451418122;
 		public static GuildPlayerState[]	_playerStateArr {get; private set;} = new GuildPlayerState[0];
+		private static string							GjallarhornControlFullAddress	{get; set;} = Environment.GetEnvironmentVariable("GJALLARHORNCONTROL_ADDRESS") ?? throw new InvalidOperationException("ALBINA_SITE_ADDRESS not set");
+		private static string							GjallarhornControlPort				{get; set;} = Environment.GetEnvironmentVariable("GJALLARHORNCONTROL_PORT") ?? throw new InvalidOperationException("ALBINA_SITE_PORT not set");
 
 	// 1. Constructor
 	// 2. Core Functions
@@ -174,7 +176,7 @@ namespace Gjallarhorn.Components {
 				var embed = new DiscordEmbedBuilder();
 				embed.WithColor(DiscordColor.DarkBlue);
 				embed.WithTitle("SFX ControlPanel Link");
-				embed.WithDescription($"[Here is your link for this Channel's ControlPanel](http://{publicIp}:11769/Gjallarhorn/control-panel?userId={ctx._userId}&channelId={ctx._chatChannel.Id})");
+				embed.WithDescription($"[Here is your link for this Channel's ControlPanel]({GjallarhorCalls.GjallarhornControlFullAddress}/Gjallarhorn/control-panel?userId={ctx._userId}&channelId={ctx._chatChannel.Id})");
 				embed.WithFooter($"For: {ctx._username}", ctx._userIcon);
 				var temp = await ctx._chatChannel.SendMessageAsync(embed);
 				await Task.Delay(1000 * 15);
