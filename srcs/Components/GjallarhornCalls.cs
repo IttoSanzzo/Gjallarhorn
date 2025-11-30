@@ -31,7 +31,6 @@ namespace Gjallarhorn.Components {
 		private static ulong							_GjallarhornId	{get; set;} = 1273070668451418122;
 		public static GuildPlayerState[]	_playerStateArr {get; private set;} = new GuildPlayerState[0];
 		private static string							GjallarhornControlFullAddress	{get; set;} = Environment.GetEnvironmentVariable("GJALLARHORNCONTROL_ADDRESS") ?? throw new InvalidOperationException("ALBINA_SITE_ADDRESS not set");
-		private static string							GjallarhornControlPort				{get; set;} = Environment.GetEnvironmentVariable("GJALLARHORNCONTROL_PORT") ?? throw new InvalidOperationException("ALBINA_SITE_PORT not set");
 
 	// 1. Constructor
 	// 2. Core Functions
@@ -172,7 +171,6 @@ namespace Gjallarhorn.Components {
 			if (ctx._chatChannel == null)
 				return ;
 			try {
-            	string publicIp = await Program.HttpCli.GetStringAsync("https://api.ipify.org");
 				var embed = new DiscordEmbedBuilder();
 				embed.WithColor(DiscordColor.DarkBlue);
 				embed.WithTitle("SFX ControlPanel Link");
