@@ -1,16 +1,13 @@
-using DSharpPlus;
 using DSharpPlus.Entities;
-using DSharpPlus.EventArgs;
 using DSharpPlus.Lavalink;
-using Gjallarhorn.Components;
 
 namespace Gjallarhorn.Events {
 	public static class ChariotConn {
 		// -1. Struct
 			public struct t_tools {
-				public ulong					serverId	{get; set;}
-				public LavalinkExtension		llInstace	{get; set;}
-				public LavalinkNodeConnection	node		{get; set;}
+				public ulong										serverId	{get; set;}
+				public LavalinkExtension				llInstace	{get; set;}
+				public LavalinkNodeConnection		node		{get; set;}
 				public LavalinkGuildConnection	conn		{get; set;}
 			}
 

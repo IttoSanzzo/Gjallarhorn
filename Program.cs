@@ -7,17 +7,20 @@ using DSharpPlus.SlashCommands;
 using Gjallarhorn.Config;
 using Gjallarhorn.Events;
 using Gjallarhorn.HttpServer;
-using System.Diagnostics;
+using Gjallarhorn.Components.SoundcloudApi;
+using Gjallarhorn.Components.SpotifyApi;
 
 namespace Gjallarhorn {
 	internal class Program {
 	// 0. Program Variables
-		public static HttpClient							HttpCli			{get; set;} = new HttpClient();
-		public static DiscordClient?					Client			{get; set;} = null;
-		public static CommandsNextExtension?	Commands		{get; set;}
-		public static Thread?									SocketThread	{get; set;} = null;
+		public static HttpClient							HttpClient			{get; set;} = new HttpClient();
+		public static DiscordClient?					Client					{get; set;}
+		public static CommandsNextExtension?	Commands				{get; set;}
+		public static Thread?									SocketThread		{get; set;} = null;
+		public static SpotifyConn							SpotifyConn			{get; set;} = new SpotifyConn();
+		public static SoundcloudConn					SoundcloudConn	{get; set;} = new SoundcloudConn();
 	// 0.1. Config Program Variables
-		public static bool 										_LocalLavalink	{get; set;} = true;
+		public static bool 										LocalLavalink	{get; set;} = true;
 
 	// 1. Main
 		static async Task Main(string[] args) {

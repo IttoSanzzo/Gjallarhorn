@@ -1,11 +1,15 @@
-using Gjallarhorn.Components;
+using Gjallarhorn.Components.MusicComponent;
 
 namespace Gjallarhorn.HttpServer {
 	public class PlayerGenericCommand {
-		public string?	TrackUrl	{get;set;} = null;
 		public string		Command		{get;set;} = "";
+		public string		TargetBot	{get; set;} = "";
 		public string		UserId		{get;set;} = "";
+		public string		GuildId		{get; set;} = "";
+		public string?	TrackUrl	{get;set;} = null;
 		public string?	ChannelId	{get;set;} = null;
+		public long?		Position	{get;set;} = null;
+		public bool			Priority	{get;set;} = true;
 	}
 	public class GjallarhornPostBody {
 		public string?	TrackUrl				{get;set;} = null;
@@ -16,6 +20,7 @@ namespace Gjallarhorn.HttpServer {
 		public string?	ChannelId				{get;set;} = null;
 	}
 	public static class GjallarhornHttpServer {
+		private static readonly HttpClient _httpClient	= new();
 		private static readonly string ServerPortString	= Environment.GetEnvironmentVariable("HTTP_SERVER_PORT") ?? throw new InvalidOperationException("HTTP_SERVER_PORT not set");
 		private static readonly int		 ServerPort				= int.Parse(ServerPortString);
 		
@@ -37,75 +42,33 @@ namespace Gjallarhorn.HttpServer {
 				return builder.Build();
 			});
 
-			app.MapPost("/player", (Delegate)PostGenericCommandAsync);
-			app.MapPost("/player/full", (Delegate)PostFullCommandAsync);
+			app.MapRoutes();
 
 			Program.WriteLine("Http Server Ready...");
 			app.Run();
 		}
-		static public async Task<IResult> PostGenericCommandAsync(HttpContext context) {
+		private static void MapRoutes(this WebApplication app) {
+			app.MapPost("/{guildId}/player", (Delegate)PostGenericCommandAsync);
+		}
+
+		static public async Task<IResult>	PostGenericCommandAsync(string guildId, HttpContext context) {
 			var payload = await context.Request.ReadFromJsonAsync<PlayerGenericCommand>();
 			if (payload is null)
 				return Results.BadRequest("Payload was null.");
 			try {
-				GjallarhornHttpServer.GenericFunctionSwitch(payload);
+				payload.GuildId = guildId;
+				payload.TargetBot = "Gjallarhorn";
+				GjallarhornHttpServer.FunctionsSwitch(payload);
 				return Results.Ok();
 			} catch (Exception ex) {
 				return Results.BadRequest($"Exception: {ex.Message}");
 			}
 		}
-		static public async Task<IResult> PostFullCommandAsync(HttpContext context) {
-			var payload = await context.Request.ReadFromJsonAsync<GjallarhornPostBody>();
-			if (payload is null)
-				return Results.BadRequest("Payload was null.");
-			try {
-				GjallarhornHttpServer.FullFunctionSwitch(payload);
-				return Results.Ok();
-			} catch (Exception ex) {
-				return Results.BadRequest($"Exception: {ex.Message}");
-			}
-		}
-
-		private static async void	GenericFunctionSwitch(PlayerGenericCommand payload) {
-			try {
-				var gCtx = new GjallarhornContext(payload);
-				await FunctionsSwitch(gCtx);
-			} catch(Exception ex) {
-				Program.WriteException(ex);
-			}
-		}
-		private static async void	FullFunctionSwitch(GjallarhornPostBody payload) {
-			try {
-				var gCtx = new GjallarhornContext(payload);
-				await FunctionsSwitch(gCtx);
-			} catch(Exception ex) {
-				Program.WriteException(ex);
-			}
-		}
-		private static async Task	FunctionsSwitch(GjallarhornContext gCtx) {
-			switch (gCtx._command) {
-				case ("Message"):
-					await GjallarhorCalls.SendEmbedMessageAsync(gCtx);
-				break;
-				case ("Play"):
-					await GjallarhorCalls.PlayAsync(gCtx);
-				break;
-				case ("Loop"):
-					await GjallarhorCalls.LoopAsync(gCtx);
-				break;
-				case ("Pause"):
-					await GjallarhorCalls.PauseAsync(gCtx);
-				break;
-				case ("Stop"):
-					await GjallarhorCalls.StopAsync(gCtx);
-				break;
-				case ("ControlPanel"):
-					await GjallarhorCalls.ControlPanelAsync(gCtx);
-				break;
-				default:
-					Program.ColorWriteLine(ConsoleColor.Red, $"FunctionsSwitch: Command received was not valid. ({gCtx._command})");
-				break;
-			}
+		private static async void					FunctionsSwitch(PlayerGenericCommand genericCommand) {
+			var gCtx = new GjallarhornContext();
+			await gCtx.GjallarhornContextAsync(genericCommand);
+			gCtx.Data.WithResponse = false;
+			await GjallarhornMusicCalls.TryCallAsync(gCtx);
 		}
 	}
 }

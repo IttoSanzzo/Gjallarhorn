@@ -6,6 +6,7 @@ namespace Gjallarhorn.Events {
 	public static class	EventsInit{
 		public static void EventsInitRun(this DiscordClient client) {
 			client.Ready += Client_Ready;
+			client.ComponentInteractionCreated += Events.GjallarhornMusicEvents.MusicInterectionButton;
 		}
 		public static void EventsInitRun(this CommandsNextExtension command) {
 			// command.CommandErrored += STPCommandErrored.CmdErrTask;
