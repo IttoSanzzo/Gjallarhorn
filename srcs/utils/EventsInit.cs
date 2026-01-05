@@ -7,6 +7,8 @@ namespace Gjallarhorn.Events {
 		public static void EventsInitRun(this DiscordClient client) {
 			client.Ready += Client_Ready;
 			client.ComponentInteractionCreated += Events.GjallarhornMusicEvents.MusicInterectionButton;
+			client.VoiceStateUpdated += GjallarhornMusicEvents.Disconnected;
+			// client.UnknownEvent += GjallarhornMusicEvents.UnknownEventHandler;
 		}
 		public static void EventsInitRun(this CommandsNextExtension command) {
 			// command.CommandErrored += STPCommandErrored.CmdErrTask;
