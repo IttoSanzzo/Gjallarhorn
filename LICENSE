@@ -7,14 +7,12 @@ This LICENSE applies to ChariotSanzzo and all of its composing parts, including 
     You are permitted to view, study, and experiment with this repository for educational or exploratory purposes only.
 
 2.  **Restrictions**
-
     - You may **not** clone, redistribute, or use any part of the ChariotSanzzo ecosystem — including but not limited to Chariot, Gjallarhorn, ChariotAPI, and ChariotControlPanel — privately or commercially without explicit written consent from the author.
     - Modifying or adapting this repository for personal deployment or public distribution is strictly prohibited.
     - The project depends on private APIs, databases, Discord integrations, and other proprietary services that are not included in this repository.
 
 3.  **Intended Use**
     ChariotSanzzo and all of its components are intended for personal and private use among members of the Setsu TeaParty. Together, they serve as a hub for:
-
     - Discord bot functionalities (Chariot and Gjallarhorn).
     - A control panel interface for managing bots and services (ChariotControlPanel).
     - A secure REST API for communication between services (ChariotAPI).
