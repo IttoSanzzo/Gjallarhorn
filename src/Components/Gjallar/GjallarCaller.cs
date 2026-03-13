@@ -4,6 +4,7 @@ using Gjallarhorn.Utils;
 using DSharpPlus.Entities;
 using Lavalink4NET.Rest.Entities.Tracks;
 using Lavalink4NET.Tracks;
+using Gjallarhorn.Infrastructure.Config;
 
 namespace Gjallarhorn.Components.Gjallar {
 	public static class GjallarCaller {
@@ -413,7 +414,7 @@ namespace Gjallarhorn.Components.Gjallar {
 				var embed = new DiscordEmbedBuilder();
 				embed.WithColor(DiscordColor.DarkBlue);
 				embed.WithTitle("Music ControlPanel Link");
-				embed.WithDescription($"[Here is your link for this Channel's ControlPanel]({LinkData.GetGjallarhornControlFullAddress()}/ChariotSanzzo/control-panel?&userId={ctx.Member.Id})");
+				embed.WithDescription($"[Here is your link for this Channel's ControlPanel]({LinkData.GetGjallarhornControlFullAddress()}/{DiscordBotConfig.Name}/control-panel?&userId={ctx.Member.Id})");
 				embed.WithFooter($"For: {ctx.Username}", ctx.UserIcon);
 				await ctx.Ictx.EditResponseAsync(new DiscordWebhookBuilder().AddEmbed(embed));
 				await Task.Delay(1000 * 15);

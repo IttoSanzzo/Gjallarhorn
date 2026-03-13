@@ -13,4 +13,4 @@ COPY --from=build /app/publish .
 
 EXPOSE 11767
 
-ENTRYPOINT ["dotnet", "ChariotSanzzo.dll", "--urls=http://0.0.0.0:11767"]
+ENTRYPOINT ["dotnet", "Gjallarhorn.dll", "--urls=http://0.0.0.0:11767"]

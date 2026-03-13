@@ -1,4 +1,5 @@
 using Gjallarhorn.Components.Gjallar.Types;
+using Gjallarhorn.Infrastructure.Config;
 using Gjallarhorn.Utils;
 
 namespace Gjallarhorn.Components.Gjallar {
@@ -49,7 +50,7 @@ namespace Gjallarhorn.Components.Gjallar {
 			var (nextTrack, nextTrackIndex) = tools.Player.GetNextTrackSafe(tools.Ctx);
 			var currentPosition = currentTrack.GetTrackCurrentPosition(tools, tools.Ctx.Result);
 
-			await Program.HttpClient.PostAsJsonAsync<PlayerLiveUpdateDto>(LinkData.GetChariotApiFullAddress($"/live/ChariotSanzzo/{tools.GuildId}/player-update-socket"), new(
+			await Program.HttpClient.PostAsJsonAsync<PlayerLiveUpdateDto>(LinkData.GetChariotApiFullAddress($"/live/{DiscordBotConfig.Name}/{tools.GuildId}/player-update-socket"), new(
 				tools.GuildId.ToString(),
 				tools.Player.VoiceChannelId.ToString(),
 				tools.Player.Chat?.Id.ToString(),
@@ -87,7 +88,7 @@ namespace Gjallarhorn.Components.Gjallar {
 					tools.Player.Tracks.Select((track, index) => track.ToTrackInfo(index))
 				)
 			};
-			var response = await Program.HttpClient.PostAsJsonAsync<QueueUpdateDto>(LinkData.GetChariotApiFullAddress($"/live/ChariotSanzzo/{tools.GuildId}/queue-update-socket"), new(
+			var response = await Program.HttpClient.PostAsJsonAsync<QueueUpdateDto>(LinkData.GetChariotApiFullAddress($"/live/{DiscordBotConfig.Name}/{tools.GuildId}/queue-update-socket"), new(
 				tools.GuildId.ToString(),
 				tools.Ctx.Guild.Name,
 				tools.Player.VoiceChannelId.ToString(),
