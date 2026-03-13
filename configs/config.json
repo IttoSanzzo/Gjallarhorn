@@ -42,5 +42,23 @@
 		"gjallarhornControlAdress": "https://gjallarhorncontrol.setsu.party",
 		"albinaApiAddress": "https://albinaapi.setsu.party",
 		"albinaSiteAddress": "https://albina.setsu.party"
+	},
+	"emojis": {
+		"circularReplayIcon": "<:CircularReplayIcon:1481866339353100368>",
+		"circularShuffleIcon": "<:CircularShuffleIcon:1481866384488140810>",
+		"circularLoopIcon": "<:CircularLoopIcon:1481866414326284329>",
+		"circularNotLoopIcon": "<:CircularNotLoopIcon:1481866450787369051>",
+		"circularOneLoopIcon": "<:CircularOneLoopIcon:1481866467392749690>",
+		"circularPreviousTrackIcon": "<:CircularPreviousTrackIcon:1481866500351725690>",
+		"circularNextTrackIcon": "<:CircularNextTrackIcon:1481866515832770761>",
+		"circularPlayPauseIcon": "<:CircularPlayPauseIcon:1481866559797334168>",
+		"circularPlayIcon": "<:CircularPlayIcon:1481866588364996628>",
+		"soundCloudIcon": "<:SoundCloudIcon:1481866653359931466>",
+		"spotifyIcon": "<:SpotifyIcon:1481866665187606620>",
+		"youtubeIcon": "<:YoutubeIcon:1481866677145567243>",
+		"cSTails": "<:CSTails:1481866707164336239>",
+		"cSHeads": "<:CSHeads:1481866717398302902>",
+		"chariot": "<:Chariot:1481866735610106032>",
+		"gjallarhornCrop": "<:GjallarhornCrop:1481867069963374682>"
 	}
 }
